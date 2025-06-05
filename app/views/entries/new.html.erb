@@ -1,22 +1,32 @@
 <h1>New Entry</h1>
 
-<form action="/entries" method="post">
-  <input type="hidden" name="place_id" value="<%= params["place_id"] %>">
+<%= form_with model: @entry, local: true, html: { multipart: true } do |form| %>
+  <div class="mb-3">
+    <%= form.label :title, class: "form-label" %>
+    <%= form.text_field :title, class: "form-control" %>
+  </div>
 
-  <p>
-    <label for="title_input">Title</label>
-    <input type="text" name="title" id="title_input">
-  </p>
+  <div class="mb-3">
+    <%= form.label :description, class: "form-label" %>
+    <%= form.text_area :description, class: "form-control", rows: 5 %>
+  </div>
 
-  <p>
-    <label for="description_input">Description</label>
-    <input type="text" name="description" id="description_input">
-  </p>
+  <div class="mb-3">
+    <%= form.label :occurred_on, "Date", class: "form-label" %>
+    <%= form.date_field :occurred_on, class: "form-control" %>
+  </div>
 
-  <p>
-    <label for="occurred_on_input">Occurred On</label>
-    <input type="date" name="occurred_on" id="occurred_on_input">
-  </p>
+  <div class="mb-3">
+    <%= form.label :place_id, "Place", class: "form-label" %>
+    <%= form.collection_select :place_id, Place.all, :id, :name, { prompt: "Select a place" }, class: "form-select" %>
+  </div>
 
-  <button>Save</button>
-</form>
+  <div class="mb-3">
+    <%= form.label :image, "Upload a photo (optional)", class: "form-label" %>
+    <%= form.file_field :image, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.submit "Create Entry", class: "btn btn-primary" %>
+  </div>
+<% end %>

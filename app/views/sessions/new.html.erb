@@ -1,6 +1,16 @@
 <h1>Login</h1>
 
-<form action="/sessions" method="post">
+<%= form_tag("/sessions") do %>
+  <div class="form-group">
+    <label for="email">Email:</label>
+    <%= text_field_tag("email", nil, class: "form-control") %>
+  </div>
 
-  <button>Login<button>
-</form>
+  <div class="form-group">
+    <label for="password">Password:</label>
+    <%= password_field_tag("password", nil, class: "form-control") %>
+  </div>
+
+  <%= submit_tag("Log in", class: "btn btn-primary mt-2") %>
+<% end %>
+

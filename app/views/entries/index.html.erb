@@ -1,0 +1,26 @@
+<h1>My Journal Entries</h1>
+
+<% if @entries.any? %>
+  <div class="row">
+    <% @entries.each do |entry| %>
+      <div class="col-md-4 mb-4">
+        <div class="card h-100">
+          <% if entry.image.attached? %>
+            <%= image_tag entry.image, class: "card-img-top" %>
+          <% end %>
+          <div class="card-body">
+            <h5 class="card-title"><%= entry.title %></h5>
+            <p class="card-text"><%= truncate(entry.description, length: 100) %></p>
+            <p class="card-text"><small class="text-muted">Visited on <%= entry.occurred_on.strftime("%B %d, %Y") %> in <%= entry.place.name %></small></p>
+            <%= link_to "View Entry", entry_path(entry), class: "btn btn-sm btn-outline-primary" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p>You haven't added any entries yet.</p>
+<% end %>
+
+<%= link_to "Add New Entry", new_entry_path, class: "btn btn-primary mt-3" %>
+

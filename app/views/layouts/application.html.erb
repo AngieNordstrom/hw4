@@ -1,25 +1,38 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Tacostagram Final</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-
-    <link rel="stylesheet" href="/stylesheets/application.css">
-  </head>
-
-  <body>
-    <div>
-      <%= flash["notice"] %>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">Travel Journal</a>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <% if session["user_id"] %>
+            <li class="nav-item">
+              <a class="nav-link" href="/places">Places</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/entries">Entries</a>
+            </li>
+            <li class="nav-item">
+            <%= link_to "Logout", "/sessions", method: :delete, class: "nav-link" %>
+            </li>
+          <% else %>
+            <li class="nav-item">
+              <a class="nav-link" href="/users/new">Signup</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/sessions/new">Login</a>
+            </li>
+          <% end %>
+        </ul>
+        <% if session["user_id"] %>
+          <span class="navbar-text">
+            Logged in as <%= User.find_by(id: session["user_id"])&.username %>
+          </span>
+        <% end %>
+      </div>
     </div>
-    <div>
-      <a href="/">Home</a>
-      <a href="/logout">Logout</a>
-      <a href="/login">Login</a>
-      <a href="/users/new">Signup</a>
-    </div>
+  </nav>
 
+  <div class="container">
     <%= yield %>
-  </body>
-</html>
+  </div>
+</body>

@@ -1,0 +1,15 @@
+<h1><%= @entry.title %></h1>
+
+<p><strong>Date:</strong> <%= @entry.occurred_on %></p>
+
+<p><strong>Location:</strong> <%= @entry.place.name %></p>
+
+<p><strong>Description:</strong></p>
+<p><%= @entry.description %></p>
+
+<% if @entry.image.attached? %>
+  <p><strong>Photo:</strong></p>
+  <%= image_tag url_for(@entry.image), class: "img-fluid rounded shadow mb-3", alt: "Entry photo" %>
+<% end %>
+
+<%= link_to "Back to entries", "/entries", class: "btn btn-secondary" %>
